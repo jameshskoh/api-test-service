@@ -15,5 +15,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
+      - run: chmod +x ./gradlew
       - name: Build and test
         run: ./gradlew clean test
