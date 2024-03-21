@@ -1,0 +1,27 @@
+substitutions:
+  _REPOSITORY: api-test-service
+  _IMAGE_TAG: 0.0.3
+  _REGION: 'asia-east1'
+
+steps:
+- name: gradle:8.6.0-jdk21
+  entrypoint: gradle
+  args: ['bootJar']
+- name: gcr.io/cloud-builders/docker
+  args: ['build',
+         '-t',
+         '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_REPOSITORY}:${_IMAGE_TAG}',
+         '--build-arg=JAR_FILE=build/libs/${_REPOSITORY}-${_IMAGE_TAG}.jar', '.']
+- name: gcr.io/cloud-builders/docker
+  args: ['push',
+         '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_REPOSITORY}:${_IMAGE_TAG}']
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: gcloud
+  args: ['run',
+         'deploy',
+         '${_REPOSITORY}',
+         '--image',
+         '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_REPOSITORY}:${_IMAGE_TAG}',
+         '--region',
+         '${_REGION}']
+images: ['${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_REPOSITORY}:${_IMAGE_TAG}']
