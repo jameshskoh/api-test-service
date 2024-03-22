@@ -21,10 +21,10 @@ class ApiTestServiceApplicationTests {
     Assertions.assertThat(someValue).isBetween(0, 2);
   }
 
-  //  @Test
-  //  void failingTest() {
-  //    var someValue = 3;
-  //
-  //    Assertions.assertThat(someValue).isBetween(0, 2);
-  //  }
+  @Test
+  void failingTest() {
+    var someValue = 3;
+
+    Assertions.assertThat(someValue).isBetween(0, 2);
+  }
 }
