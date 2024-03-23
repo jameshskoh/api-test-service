@@ -1,6 +1,6 @@
 substitutions:
   _REPOSITORY: api-test-service
-  _IMAGE_TAG: 0.0.3
+  _IMAGE_TAG: 0.0.4
   _REGION: 'asia-east1'
 
 steps:
