@@ -1,9 +1,6 @@
 name: main-cicd-pipeline
 
-on:
-  push:
-    branches:
-      - "*"
+on: [push]
 
 jobs:
   build-test:
